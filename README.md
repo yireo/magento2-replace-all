@@ -8,4 +8,4 @@ This package makes use of the following sub-packages:
 - `yireo/magento2-replace-bundled` removes third party bundled extensions
 - `yireo/magento2-replace-core` removes optional core modules
 - `yireo/magento2-replace-graphql` removes optional GraphQL modules
-- `yireo/magento2-replace-msi` removes optional MSI modules
+- `yireo/magento2-replace-inventory` removes optional MSI modules
