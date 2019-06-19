@@ -5,6 +5,6 @@
     "yireo/magento2-replace-bundled": "2.3.1",
     "yireo/magento2-replace-core": "2.3.1",
     "yireo/magento2-replace-graphql": "2.3.1",
-    "yireo/magento2-replace-msi": "2.3.1"
+    "yireo/magento2-replace-inventory": "2.3.1"
   }
 }
