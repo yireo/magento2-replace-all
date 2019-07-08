@@ -31,3 +31,5 @@ working, copy this script to its root and run it. The scripts argument defaults 
 replace packages:
 
     ./magento2-run-tests.sh 2.3.2
+
+In a generic environment, all tests (and therefore, all possible combinations of the replace packages) should work.
