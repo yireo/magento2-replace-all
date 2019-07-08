@@ -2,8 +2,10 @@
 
 magentoVersion=$1
 if [ -z "$magentoVersion" ]; then
-    magentoVersion=@dev
+    magentoVersion="@dev"
 fi
+
+echo "Working with Magento version $magentoVersion"
 
 core=yireo/magento2-replace-core
 bundled=yireo/magento2-replace-bundled
@@ -33,10 +35,10 @@ function removePackages() {
     composer remove --no-update $packages
 }
 
-addPackages $core; reconfigureMagento(); removePackages $core
-addPackages $bundled; reconfigureMagento(); removePackages $bundled
-addPackages $graphql; reconfigureMagento(); removePackages $graphql
-addPackages $inventory; reconfigureMagento(); removePackages $inventory
+addPackages $core; reconfigureMagento; removePackages $core
+addPackages $bundled; reconfigureMagento; removePackages $bundled
+addPackages $graphql; reconfigureMagento; removePackages $graphql
+addPackages $inventory; reconfigureMagento; removePackages $inventory
 
 addPackages $core $bundled; reconfigureMagento; removePackages $core $bundled
 addPackages $core $graphql; reconfigureMagento; removePackages $core $graphql
