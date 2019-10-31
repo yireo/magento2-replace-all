@@ -25,6 +25,9 @@ The following things might fail with these replacements:
   (`setup:di:compile`). If this concerns a setup with only core packages, make sure to open an **Issue**. 
 
 ## FAQ
+#### Installing this package leads to many errors
+Intruiging, isn't it? Yes, this could happen. Perhaps some modules that you are replacing are in use with your own custom code. Or perhaps you are relying on other third party extensions that have yet an undocumented dependency that conflicts with this `replace` trick. If you are not willing to troubleshoot this, simply skip this trick and move on. If you are willing to troubleshoot this, copy the `replace` lines to your own `composer.json` and remove lines one-by-one until you have found the culprit.
+
 #### Is this package compatible with Magento 2.x.y?
 Theoretically, yes. Make sure this package is not a module, not a library, not a Magento extension. It is a gathering of hacks. So, if you understand the benefit of the `replace` trick in composer, you can use this repository to ease the pain of upgrading.
 
