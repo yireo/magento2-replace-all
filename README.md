@@ -24,6 +24,17 @@ The following things might fail with these replacements:
 - After installing certain extensions, everything works fine on a composer level, but things fail when compiling DI
   (`setup:di:compile`). If this concerns a setup with only core packages, make sure to open an **Issue**. 
 
+## FAQ
+#### Is this package compatible with Magento 2.x.y?
+Theoretically, yes. Make sure this package is not a module, not a library, not a Magento extension. It is a gathering of hacks. So, if you understand the benefit of the `replace` trick in composer, you can use this repository to ease the pain of upgrading.
+
+One conceptual idea in this repository is to try to keep track of the main Magento version by creating a branch `2.x.y` with a corresponding release `2.x.y`. Sometimes the actual work falls behind, which by no means indicates that the current bundling of tricks no longer works. Simply, install this package using `composer` and see if this works for you (see below).
+
+#### How to test if this is working?
+Take your test environment. Install this package. If this works, run `bin/magento setup:di:compile` (in both Developer Mode and Production Mode) to see if there are any errors. If this fails, feel free to report an issue here. If this works, you could assume that this works ok.
+
+Remember this repository offers a smart hack, not a supported solution. You can also live with a slower Magento installation that fully complies with the Magento standards (and ships with modules you don't use and/or like).
+
 ## Testing
 To test if all packages are valid, I have used the script `magento2-run-tests.sh` included in this repo. To test this
 yourself, make sure to start with a completely clean Magento 2 setup. Next, once Magento is setup and confirmed to be
