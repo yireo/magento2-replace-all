@@ -1,0 +1,38 @@
+sudo: required
+dist: trusty
+group: edge
+addons:
+  apt:
+    packages:
+      - mysql-server-5.6
+      - mysql-client-core-5.6
+      - mysql-client-5.6
+      - postfix
+  hosts:
+    - magento2.test
+services:
+  - docker
+  - mysql
+language: php
+#php:
+#  - 7.1
+#  - 7.2
+#  - 7.3
+env:
+  global:
+    - MAGENTO_HOST_NAME="magento2.test"
+    - MAGENTO_PROTOCOL="https"
+    - MAGENTO_BACKEND="backend"
+    - MAGENTO_ADMIN_USERNAME="admin"
+    - MAGENTO_ADMIN_PASSWORD="123123q"
+  matrix:
+    - MAGENTO_VERSION=2.3.4 TRAVIS_PHP_VERSION=7.4 PACKAGES=(core|bundled|graphql|inventory)
+matrix:
+  fast_finish: true
+cache:
+  directories:
+    - $HOME/.composer/cache
+install:
+  - bash -x .travis/install.sh
+script:
+  - bash -x .travis/script.sh
