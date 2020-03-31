@@ -3,8 +3,6 @@ This repository contains a composer meta-package that removes numerous Magento 2
 
     composer require yireo/magento2-replace-all:2.3.*
 
-_Replace `*` with your magento version_
-
 ## Requiments
 This package support Magento 2.3 or higher.
 
