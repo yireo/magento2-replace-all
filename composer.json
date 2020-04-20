@@ -2,6 +2,7 @@
   "name": "yireo/magento2-replace-all",
   "version": "2.3.4",
   "require": {
+    "magento/product-community-edition": "2.3.4",
     "yireo/magento2-replace-bundled": "2.3.4",
     "yireo/magento2-replace-core": "2.3.4",
     "yireo/magento2-replace-graphql": "2.3.4",
