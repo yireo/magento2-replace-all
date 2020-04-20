@@ -11,10 +11,10 @@ This package support Magento 2.3 or higher.
 ## Notes
 This package makes use of the following sub-packages:
 
-- (yireo/magento2-replace-bundled)[https://github.com/yireo/magento2-replace-bundled] removes third party bundled extensions
-- (yireo/magento2-replace-core)[https://github.com/yireo/magento2-replace-core] removes optional core modules
-- (yireo/magento2-replace-graphql)[https://github.com/yireo/magento2-replace-graphql] removes optional GraphQL modules
-- (yireo/magento2-replace-inventory)[https://github.com/yireo/magento2-replace-inventory] removes optional MSI modules
+- [yireo/magento2-replace-bundled](https://github.com/yireo/magento2-replace-bundled) removes third party bundled extensions
+- [yireo/magento2-replace-core](https://github.com/yireo/magento2-replace-core) removes optional core modules
+- [yireo/magento2-replace-graphql](https://github.com/yireo/magento2-replace-graphql) removes optional GraphQL modules
+- [yireo/magento2-replace-inventory](https://github.com/yireo/magento2-replace-inventory) removes optional MSI modules
 
 ## Troubleshooting
 The following things might fail with these replacements:
