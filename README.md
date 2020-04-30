@@ -11,10 +11,10 @@ This package support Magento 2.3 or higher.
 ## Notes
 This package makes use of the following sub-packages:
 
-- `(yireo/magento2-replace-bundled)[https://github.com/yireo/magento2-replace-bundled]` removes third party bundled extensions
-- `(yireo/magento2-replace-core)[https://github.com/yireo/magento2-replace-core]` removes optional core modules
-- `(yireo/magento2-replace-graphql)[https://github.com/yireo/magento2-replace-graphql]` removes optional GraphQL modules
-- `(yireo/magento2-replace-inventory)[https://github.com/yireo/magento2-replace-inventory]` removes optional MSI modules
+- [yireo/magento2-replace-bundled](https://github.com/yireo/magento2-replace-bundled) removes third party bundled extensions
+- [yireo/magento2-replace-core](https://github.com/yireo/magento2-replace-core) removes optional core modules
+- [yireo/magento2-replace-graphql](https://github.com/yireo/magento2-replace-graphql) removes optional GraphQL modules
+- [yireo/magento2-replace-inventory](https://github.com/yireo/magento2-replace-inventory) removes optional MSI modules
 
 ## Troubleshooting
 The following things might fail with these replacements:
@@ -39,11 +39,16 @@ Take your test environment. Install this package. If this works, run `bin/magent
 Remember this repository offers a smart hack, not a supported solution. You can also live with a slower Magento installation that fully complies with the Magento standards (and ships with modules you don't use and/or like).
 
 ## Testing
-To test if all packages are valid, I have used the script `magento2-run-tests.sh` included in this repo. To test this
-yourself, make sure to start with a completely clean Magento 2 setup. Next, once Magento is setup and confirmed to be
-working, copy this script to its root and run it. The scripts argument defaults to using the `@dev` versions of these
+To test if all packages are valid, I have used the script `magento2-run-tests.sh` included in this repo. 
+Copy this script to your system and run it. The scripts argument defaults to using the `@dev` versions of these
 replace packages:
 
-    ./magento2-run-tests.sh 2.3.2
+    ./magento2-run-tests.sh 2.3.4
+
+This will create a new Magento environment. If you would like to use an existing environment, use a second argument for the directory of your environment:
+
+    ./magento2-run-tests.sh 2.3.4 /var/www/html/my-magento
+
+Do NOT use this on a live site, because it will break things.
 
 In a generic environment, all tests (and therefore, all possible combinations of the replace packages) should work.
