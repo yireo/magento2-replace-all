@@ -1,23 +1,66 @@
 #!/bin/bash
 
 magentoVersion=$1
+magentoTestDir=$2
+
+DB_HOST=172.20.0.102
+DB_NAME=magento2
+DB_USER=root
+DB_PASSWORD=root
+
 if [ -z "$magentoVersion" ]; then
     magentoVersion="@dev"
 fi
 
+if [ ! -d "$magentoTestDir" ]; then
+    magentoTestDir="/tmp/magento$$"
+fi
+
+
 echo "Working with Magento version $magentoVersion"
+
+echo "Using directory $magentoTestDir"
+mkdir -p $magentoTestDir
+cd $magentoTestDir
 
 core=yireo/magento2-replace-core
 bundled=yireo/magento2-replace-bundled
 graphql=yireo/magento2-replace-graphql
 inventory=yireo/magento2-replace-inventory
 
+function installMagento() {
+    echo "Installing Magento"
+    composer create-project --no-install --stability dev --prefer-source --repository-url=https://repo.magento.com/ magento/project-community-edition:$magentoVersion .
+    mkdir -p var/composer_home
+    test -f ~/.composer/auth.json && cp ~/.composer/auth.json var/composer_home/auth.json
+    composer config minimum-stability dev
+    composer config prefer-stable true
+    composer config repositories.0 --unset
+    composer config repositories.magento-marketplace composer https://repo.magento.com/
+    composer install
+}
+
+function setupMagento() {
+    echo "Run Magento setup"
+    bin/magento setup:install --base-url=http://example.com/ \
+    --db-host=${DB_HOST} --db-name=${DB_NAME} \
+    --db-user=${DB_USER} --db-password=${DB_PASSWORD} \
+    --admin-firstname=John --admin-lastname=Doe \
+    --admin-email=johndoe@example.com \
+    --admin-user=johndoe --admin-password=johndoe434S822 \
+    --backend-frontname=admin --language=en_US \
+    --currency=USD --timezone=Europe/Amsterdam --cleanup-database \
+    --sales-order-increment-prefix="ORD$" --session-save=db \
+    --use-rewrites=1 || exit
+}
+
 function reconfigureMagento() {
+    bin/magento deploy:mode:set developer
     composer clear-cache
     redis-cli flushall
     rm -rf generated/
+    bin/magento module:enable --all
     bin/magento setup:di:compile || exit
-    bin/magento deploy:mode:set developer
 }
 
 function addPackages() {
@@ -34,6 +77,9 @@ function removePackages() {
     packages=$*
     composer remove --no-update $packages
 }
+
+test -d vendor/ || installMagento
+test -f app/etc/env.php || setupMagento
 
 addPackages $core; reconfigureMagento; removePackages $core
 addPackages $bundled; reconfigureMagento; removePackages $bundled
