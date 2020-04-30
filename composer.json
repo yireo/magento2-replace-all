@@ -1,10 +1,10 @@
 {
   "name": "yireo/magento2-replace-all",
-  "version": "2.3.2",
+  "version": "2.3.0",
   "require": {
-    "yireo/magento2-replace-bundled": "2.3.2",
-    "yireo/magento2-replace-core": "2.3.2",
-    "yireo/magento2-replace-graphql": "2.3.2",
-    "yireo/magento2-replace-inventory": "2.3.2"
+    "yireo/magento2-replace-bundled": "*",
+    "yireo/magento2-replace-core": "*",
+    "yireo/magento2-replace-graphql": "*",
+    "yireo/magento2-replace-inventory": "*"
   }
 }
