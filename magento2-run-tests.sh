@@ -23,6 +23,7 @@ echo "Using directory $magentoTestDir"
 mkdir -p $magentoTestDir
 cd $magentoTestDir
 
+all=yireo/magento2-replace-all
 core=yireo/magento2-replace-core
 bundled=yireo/magento2-replace-bundled
 graphql=yireo/magento2-replace-graphql
@@ -30,14 +31,14 @@ inventory=yireo/magento2-replace-inventory
 
 function installMagento() {
     echo "Installing Magento"
-    composer create-project --no-install --stability dev --prefer-source --repository-url=https://repo.magento.com/ magento/project-community-edition:$magentoVersion .
+    composer create-project --no-install --stability dev --prefer-source --repository-url=https://repo.magento.com/ magento/project-community-edition:$magentoVersion . || exit
     mkdir -p var/composer_home
     test -f ~/.composer/auth.json && cp ~/.composer/auth.json var/composer_home/auth.json
     composer config minimum-stability dev
     composer config prefer-stable true
     composer config repositories.0 --unset
     composer config repositories.magento-marketplace composer https://repo.magento.com/
-    composer install
+    composer install --prefer-dist || exit
 }
 
 function setupMagento() {
@@ -55,27 +56,30 @@ function setupMagento() {
 }
 
 function reconfigureMagento() {
-    bin/magento deploy:mode:set developer
+    bin/magento deploy:mode:set developer || exit
     composer clear-cache
     redis-cli flushall
     rm -rf generated/
-    bin/magento module:enable --all
+    bin/magento module:enable --all || exit
     bin/magento setup:di:compile || exit
 }
 
 function addPackages() {
-    echo "Adding packages $*"
+    echo -e "\e[34mAdding packages $*"
+    echo -e "\e[0m"
     packages=$@
     for package in $packages; do
+        echo "composer require --no-update $package:$magentoVersion"
         composer require --no-update $package:$magentoVersion || exit
     done
-    composer install || exit
+    rm -rf composer.lock vendor/
+    composer install --prefer-dist || exit
 }
 
 function removePackages() {
     echo "Removing packages $*"
     packages=$*
-    composer remove --no-update $packages
+    composer remove --no-update $core $bundled $graphql $inventory $all
 }
 
 test -d vendor/ || installMagento
@@ -99,4 +103,6 @@ addPackages $core $graphql $inventory; reconfigureMagento; removePackages $core 
 addPackages $bundled $graphql $inventory; reconfigureMagento; removePackages $bundled $graphql $inventory
 
 addPackages $core $bundled $graphql $inventory; reconfigureMagento; removePackages $core $bundled $graphql $inventory
+
+addPackages $all; reconfigureMagento; removePackages $all
 
