@@ -159,6 +159,7 @@
         "magento/module-quote-analytics": "*",
         "magento/module-quote-graph-ql": "*",
         "magento/module-related-product-graph-ql": "*",
+        "magento/module-admin-analytics" : "*",
         "magento/module-release-notification": "*",
         "magento/module-review-analytics": "*",
         "magento/module-review-staging": "*",
