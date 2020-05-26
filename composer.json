@@ -147,7 +147,6 @@
         "magento/module-inventory-source-selection-api": "*",
         "magento/module-layered-navigation-staging": "*",
         "magento/module-marketplace": "*",
-        "magento/module-message-queue": "*",
         "magento/module-msrp-staging": "*",
         "magento/module-multishipping": "*",
         "magento/module-mysql-mq": "*",
