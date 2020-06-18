@@ -23,7 +23,6 @@
         "magento/google-shopping-ads": "*",
         "magento/inventory-composer-installer": "*",
         "magento/inventory-composer-metapackage": "*",
-        "magento/module-admin-analytics": "*",
         "magento/module-adobe-ims": "*",
         "magento/module-adobe-ims-api": "*",
         "magento/module-adobe-stock-admin-ui": "*",
@@ -200,10 +199,12 @@
         "magento/module-worldpay": "*",
         "temando/module-shipping": "*",
         "temando/module-shipping-m2": "*",
+        "temando/module-shipping-remover": "*",
         "vertex/module-address-validation": "*",
         "vertex/module-tax": "*",
         "vertex/product-magento-module": "*",
         "vertex/sdk": "*",
+        "yireo/magento2-replace-graphql": "*",
         "yotpo/magento2-module-yotpo-reviews": "*",
         "yotpo/magento2-module-yotpo-reviews-bundle": "*"
     }
