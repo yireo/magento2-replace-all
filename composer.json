@@ -154,6 +154,7 @@
         "magento/module-new-relic-reporting": "*",
         "magento/module-payment-staging": "*",
         "magento/module-paypal-graph-ql": "*",
+        "magento/module-persistent": "*",
         "magento/module-product-video-staging": "*",
         "magento/module-quote-analytics": "*",
         "magento/module-quote-graph-ql": "*",
