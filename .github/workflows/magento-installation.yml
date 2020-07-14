@@ -1,6 +1,8 @@
 name: Magento installation
 on: [push, pull_request]
-
+defaults:
+  run:
+    shell: bash
 jobs:
   magento-installation:
     name: Magento 2 Test Install
@@ -29,8 +31,8 @@ jobs:
         run: |
             REF=${{ github.ref }}
             MAGENTO_VERSION=${REF##*/}
-            MAGENTO_VERSION=${MAGENTO_VERSION#magento-#}
-            MAGENTO_VERSION=${MAGENTO_VERSION#-p*#}
+            MAGENTO_VERSION=${MAGENTO_VERSION/magento-/}
+            MAGENTO_VERSION=${MAGENTO_VERSION/-p*/}
             if [ "$MAGENTO_VERSION" = "2.3.5" ]; then export MAGENTO_VERSION=2.3.5-p1; fi
             test -z "$MAGENTO_VERSION" && exit 1
             composer create-project --repository=https://repo.magento.com/ magento/project-community-edition:${MAGENTO_VERSION} /tmp/m2 --no-install --no-interaction --no-progress
@@ -40,8 +42,8 @@ jobs:
         run: |
             REF=${{ github.ref }}
             MAGENTO_VERSION=${REF##*/}
-            MAGENTO_VERSION=${MAGENTO_VERSION#magento-#}
-            MAGENTO_VERSION=${MAGENTO_VERSION#-p*#}
+            MAGENTO_VERSION=${MAGENTO_VERSION/magento-/}
+            MAGENTO_VERSION=${MAGENTO_VERSION/-p*/}
             BRANCH=magento-${MAGENTO_VERSION}
             if [ "$MAGENTO_VERSION" = "2.3.5" ]; then export MAGENTO_VERSION=2.3.5-p1; fi
             test -z "$MAGENTO_VERSION" && exit 1
