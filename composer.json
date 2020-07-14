@@ -198,7 +198,6 @@
         "vertex/module-tax": "*",
         "vertex/product-magento-module": "*",
         "vertex/sdk": "*",
-        "yireo/magento2-replace-graphql": "*",
         "yotpo/magento2-module-yotpo-reviews": "*",
         "yotpo/magento2-module-yotpo-reviews-bundle": "*"
     }
