@@ -3,5 +3,5 @@
   "description": "Checkout a specific branch",
   "require": {
     "magento/product-community-edition": "0.0.0"
-  },
+  }
 }
