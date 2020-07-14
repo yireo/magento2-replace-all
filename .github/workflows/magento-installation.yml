@@ -62,4 +62,7 @@ jobs:
         run: |
             cd /tmp/m2
             bin/magento setup:di:compile
+      - name: Additional checks
+        run: |
+            ls -al vendor/yireo
 
