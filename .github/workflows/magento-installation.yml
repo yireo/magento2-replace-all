@@ -1,0 +1,62 @@
+name: Magento installation
+on: [push, pull_request]
+
+jobs:
+  magento-installation:
+    name: Magento 2 Test Install
+    runs-on: ubuntu-latest
+    container: yireo/magento2base:7.2
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: magento2
+        ports:
+          - 3306:3306
+        options: --tmpfs /tmp:rw --tmpfs /var/lib/mysql:rw --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    steps:
+      - uses: actions/checkout@v2
+      - name: Composer preparation
+        env:
+            MAGENTO_MARKETPLACE_USERNAME: ${{ secrets.MAGENTO_MARKETPLACE_USERNAME }}
+            MAGENTO_MARKETPLACE_PASSWORD: ${{ secrets.MAGENTO_MARKETPLACE_PASSWORD }}
+            CE_VERSION: 2.3.5-p1
+        run: |
+            mkdir -p /tmp/m2 && cd /tmp/m2
+            composer global config http-basic.repo.magento.com $MAGENTO_MARKETPLACE_USERNAME $MAGENTO_MARKETPLACE_PASSWORD
+            composer global require hirak/prestissimo
+      - name: Creating Magento composer project
+        run: |
+            composer create-project --repository=https://repo.magento.com/ magento/project-community-edition:${CE_VERSION} /tmp/m2 --no-install --no-interaction --no-progress
+      - name: Setup local composer package
+        env:
+            COMPOSER_NAME: ${{ secrets.COMPOSER_NAME }}
+        run: |
+            cd /tmp/m2
+            mkdir -p /tmp/m2/local-source/ && cd /tmp/m2/local-source/ && cp -R ${GITHUB_WORKSPACE}/*
+            cd /tmp/m2
+            composer config repositories.local-source path local-source/
+            composer require $COMPOSER_NAME:@dev --no-update --no-interaction
+      - name: Composer installation
+        run: |
+            cd /tmp/m2
+            COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist --no-interaction --no-progress --no-suggest
+      - name: Magento installation
+        run: |
+            cd /tmp/m2
+            php -d memory_limit=2G bin/magento setup:install --base-url=http://magento2.test/ \
+                --db-host=mysql --db-name=magento2 \
+                --db-user=root --db-password=root \
+                --admin-firstname=John --admin-lastname=Doe \
+                --admin-email=johndoe@example.com \
+                --admin-user=johndoe --admin-password=johndoe!1234 \
+                --backend-frontname=admin --language=en_US \
+                --currency=USD --timezone=Europe/Amsterdam --cleanup-database \
+                --sales-order-increment-prefix="ORD$" --session-save=db \
+                --use-rewrites=1
+      - name: Magento compilation
+        run: |
+            cd /tmp/m2
+            bin/magento setup:di:compile
+
