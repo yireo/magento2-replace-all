@@ -52,6 +52,7 @@ jobs:
             cd /tmp/m2
             composer config minimum-stability dev
             composer config repositories.local-source path local-source/
+            echo "Installing $COMPOSER_NAME:dev-${BRANCH}"
             composer require $COMPOSER_NAME:dev-${BRANCH} --no-update --no-interaction
       - name: Composer installation
         run: |
