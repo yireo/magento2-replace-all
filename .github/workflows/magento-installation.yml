@@ -39,12 +39,13 @@ jobs:
             cd /tmp/m2
             mkdir -p /tmp/m2/local-source/ && cd /tmp/m2/local-source/ && cp -R ${GITHUB_WORKSPACE}/*
             cd /tmp/m2
+            composer config minimum-stability dev
             composer config repositories.local-source path local-source/
             composer require $COMPOSER_NAME --no-update --no-interaction
       - name: Composer installation
         run: |
             cd /tmp/m2
-            COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-source --no-interaction --no-progress --no-suggest
+            COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist --no-interaction --no-progress --no-suggest
       - name: Magento installation
         run: |
             cd /tmp/m2
