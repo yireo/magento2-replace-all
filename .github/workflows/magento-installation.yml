@@ -44,7 +44,7 @@ jobs:
       - name: Composer installation
         run: |
             cd /tmp/m2
-            COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist --no-interaction --no-progress --no-suggest
+            COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-source --no-interaction --no-progress --no-suggest
       - name: Magento installation
         run: |
             cd /tmp/m2
