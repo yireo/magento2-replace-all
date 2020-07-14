@@ -1,5 +1,6 @@
 {
   "name": "yireo/magento2-replace-all",
+  "description": "Remove various packages from Magento",
   "version": "2.3.0",
   "require": {
     "yireo/magento2-replace-bundled": "*",
