@@ -1,7 +1,9 @@
 {
     "name": "yireo/magento2-replace-all",
     "description": "Bundling of other yireo/magento2-replace repositories",
-    "version": "2.3.4",
+    "require": {
+        "magento/product-community-edition": "2.3.4"
+    },
     "replace": {
         "amzn/amazon-pay-and-login-magento-2-module": "*",
         "amzn/amazon-pay-and-login-with-amazon-core-module": "*",
