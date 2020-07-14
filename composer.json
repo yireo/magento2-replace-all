@@ -198,9 +198,7 @@
         "temando/module-shipping-m2": "*",
         "vertex/module-address-validation": "*",
         "vertex/module-tax": "*",
-        "vertex/product-magento-module": "*",
         "vertex/sdk": "*",
-        "yotpo/magento2-module-yotpo-reviews": "*",
-        "yotpo/magento2-module-yotpo-reviews-bundle": "*"
+        "yotpo/magento2-module-yotpo-reviews": "*"
     }
 }
