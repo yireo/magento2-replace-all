@@ -37,7 +37,7 @@ jobs:
             mkdir -p /tmp/m2/local-source/ && cd /tmp/m2/local-source/ && cp -R ${GITHUB_WORKSPACE}/*
             cd /tmp/m2
             composer config repositories.local-source path local-source/
-            composer require $COMPOSER_NAME:@dev --no-update --no-interaction
+            composer require $COMPOSER_NAME --no-update --no-interaction
       - name: Composer installation
         run: |
             cd /tmp/m2
