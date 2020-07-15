@@ -26,7 +26,6 @@ jobs:
         run: |
             mkdir -p /tmp/m2 && cd /tmp/m2
             composer global config http-basic.repo.magento.com $MAGENTO_MARKETPLACE_USERNAME $MAGENTO_MARKETPLACE_PASSWORD
-            composer global require hirak/prestissimo
       - name: Creating Magento composer project
         run: |
             REF=${{ github.ref }}
@@ -74,7 +73,7 @@ jobs:
       - name: Magento compilation
         run: |
             cd /tmp/m2
-            bin/magento setup:di:compile
+            php -d memory_limit=2G bin/magento setup:di:compile
       - name: Additional checks
         run: |
             ls -al vendor/yireo
