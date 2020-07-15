@@ -76,5 +76,6 @@ jobs:
             php -d memory_limit=2G bin/magento setup:di:compile
       - name: Additional checks
         run: |
-            ls -al vendor/yireo
+            cd /tmp/m2
+            ls -al vendor/
 
