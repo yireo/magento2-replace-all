@@ -7,7 +7,7 @@ jobs:
   magento-installation:
     name: Magento 2 Test Install
     runs-on: ubuntu-latest
-    container: yireo/magento2base:7.2
+    container: yireo/magento2base:7.3
     services:
       mysql:
         image: mysql:5.7
@@ -48,8 +48,8 @@ jobs:
             if [ "$MAGENTO_VERSION" = "2.3.5" ]; then export MAGENTO_VERSION=2.3.5-p1; fi
             test -z "$MAGENTO_VERSION" && exit 1
             cd /tmp/m2
-            mkdir -p /tmp/m2/local-source/ && cd /tmp/m2/local-source/ && cp -R ${GITHUB_WORKSPACE}/*
-            cd /tmp/m2
+            ln -s ${GITHUB_WORKSPACE}/* local-source
+            composer config preferred-install source
             composer config minimum-stability dev
             composer config repositories.local-source path local-source/
             echo "Installing $COMPOSER_NAME:dev-${BRANCH}"
@@ -57,7 +57,7 @@ jobs:
       - name: Composer installation
         run: |
             cd /tmp/m2
-            COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist --no-interaction --no-progress --no-suggest
+            COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-source --no-interaction --no-progress --no-suggest --no-dev
       - name: Magento installation
         run: |
             cd /tmp/m2
