@@ -48,7 +48,7 @@ jobs:
             if [ "$MAGENTO_VERSION" = "2.3.5" ]; then export MAGENTO_VERSION=2.3.5-p1; fi
             test -z "$MAGENTO_VERSION" && exit 1
             cd /tmp/m2
-            ln -s ${GITHUB_WORKSPACE}/* local-source
+            ln -s ${GITHUB_WORKSPACE} local-source
             composer config preferred-install source
             composer config minimum-stability dev
             composer config repositories.local-source path local-source/
