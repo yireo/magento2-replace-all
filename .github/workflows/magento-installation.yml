@@ -1,11 +1,13 @@
 name: Magento installation
 on: [push, pull_request]
-
+defaults:
+  run:
+    shell: bash
 jobs:
   magento-installation:
     name: Magento 2 Test Install
     runs-on: ubuntu-latest
-    container: yireo/magento2base:7.2
+    container: yireo/magento2base:7.3
     services:
       mysql:
         image: mysql:5.7
@@ -24,27 +26,37 @@ jobs:
         run: |
             mkdir -p /tmp/m2 && cd /tmp/m2
             composer global config http-basic.repo.magento.com $MAGENTO_MARKETPLACE_USERNAME $MAGENTO_MARKETPLACE_PASSWORD
-            composer global require hirak/prestissimo
       - name: Creating Magento composer project
         run: |
             REF=${{ github.ref }}
-            cd $GITHUB_WORKSPACE; export CE_VERSION=`echo ${REF##*/} | cut -f2 -d-`
-            if [ "$CE_VERSION" = "2.3.5" ]; then export CE_VERSION=2.3.5-p1; fi
-            test -z "$CE_VERSION" && exit 1
-            composer create-project --repository=https://repo.magento.com/ magento/project-community-edition:${CE_VERSION} /tmp/m2 --no-install --no-interaction --no-progress
+            MAGENTO_VERSION=${REF##*/}
+            MAGENTO_VERSION=${MAGENTO_VERSION/magento-/}
+            MAGENTO_VERSION=${MAGENTO_VERSION/-p*/}
+            if [ "$MAGENTO_VERSION" = "2.3.5" ]; then export MAGENTO_VERSION=2.3.5-p1; fi
+            test -z "$MAGENTO_VERSION" && exit 1
+            composer create-project --repository=https://repo.magento.com/ magento/project-community-edition:${MAGENTO_VERSION} /tmp/m2 --no-install --no-interaction --no-progress
       - name: Setup local composer package
         env:
             COMPOSER_NAME: ${{ secrets.COMPOSER_NAME }}
         run: |
+            REF=${{ github.ref }}
+            MAGENTO_VERSION=${REF##*/}
+            MAGENTO_VERSION=${MAGENTO_VERSION/magento-/}
+            MAGENTO_VERSION=${MAGENTO_VERSION/-p*/}
+            BRANCH=magento-${MAGENTO_VERSION}
+            if [ "$MAGENTO_VERSION" = "2.3.5" ]; then export MAGENTO_VERSION=2.3.5-p1; fi
+            test -z "$MAGENTO_VERSION" && exit 1
             cd /tmp/m2
-            mkdir -p /tmp/m2/local-source/ && cd /tmp/m2/local-source/ && cp -R ${GITHUB_WORKSPACE}/*
-            cd /tmp/m2
+            ln -s ${GITHUB_WORKSPACE} local-source
+            composer config preferred-install source
+            composer config minimum-stability dev
             composer config repositories.local-source path local-source/
-            composer require $COMPOSER_NAME:@dev --no-update --no-interaction
+            echo "Installing $COMPOSER_NAME:dev-${BRANCH}"
+            composer require $COMPOSER_NAME:dev-${BRANCH} --no-update --no-interaction
       - name: Composer installation
         run: |
             cd /tmp/m2
-            COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist --no-interaction --no-progress --no-suggest
+            COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-source --no-interaction --no-progress --no-suggest --no-dev
       - name: Magento installation
         run: |
             cd /tmp/m2
@@ -61,5 +73,9 @@ jobs:
       - name: Magento compilation
         run: |
             cd /tmp/m2
-            bin/magento setup:di:compile
+            php -d memory_limit=2G bin/magento setup:di:compile
+      - name: Additional checks
+        run: |
+            cd /tmp/m2
+            ls -al vendor/
 
