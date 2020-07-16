@@ -28,31 +28,24 @@ jobs:
             composer global config http-basic.repo.magento.com $MAGENTO_MARKETPLACE_USERNAME $MAGENTO_MARKETPLACE_PASSWORD
       - name: Creating Magento composer project
         run: |
-            REF=${{ github.ref }}
-            MAGENTO_VERSION=${REF##*/}
-            MAGENTO_VERSION=${MAGENTO_VERSION/magento-/}
-            MAGENTO_VERSION=${MAGENTO_VERSION/-p*/}
-            if [ "$MAGENTO_VERSION" = "2.3.5" ]; then export MAGENTO_VERSION=2.3.5-p1; fi
+            MAGENTO_VERSION=`cat ${GITHUB_WORKSPACE}/.github/workflows/magento_version.txt`
             test -z "$MAGENTO_VERSION" && exit 1
             composer create-project --repository=https://repo.magento.com/ magento/project-community-edition:${MAGENTO_VERSION} /tmp/m2 --no-install --no-interaction --no-progress
       - name: Setup local composer package
         env:
             COMPOSER_NAME: ${{ secrets.COMPOSER_NAME }}
         run: |
-            REF=${{ github.ref }}
-            MAGENTO_VERSION=${REF##*/}
-            MAGENTO_VERSION=${MAGENTO_VERSION/magento-/}
-            MAGENTO_VERSION=${MAGENTO_VERSION/-p*/}
+            MAGENTO_VERSION=`cat ${GITHUB_WORKSPACE}/.github/workflows/magento_version.txt`
             BRANCH=magento-${MAGENTO_VERSION}
-            if [ "$MAGENTO_VERSION" = "2.3.5" ]; then export MAGENTO_VERSION=2.3.5-p1; fi
             test -z "$MAGENTO_VERSION" && exit 1
             cd /tmp/m2
             ln -s ${GITHUB_WORKSPACE} local-source
             composer config preferred-install source
             composer config minimum-stability dev
+            composer config repositories.remote-source vcs git@github.com:${COMPOSER_NAME}.git
             composer config repositories.local-source path local-source/
-            echo "Installing $COMPOSER_NAME:dev-${BRANCH}"
-            composer require $COMPOSER_NAME:dev-${BRANCH} --no-update --no-interaction
+            echo "Installing ${COMPOSER_NAME}:dev-${BRANCH}"
+            composer require ${COMPOSER_NAME}:dev-${BRANCH} --no-update --no-interaction
       - name: Composer installation
         run: |
             cd /tmp/m2
