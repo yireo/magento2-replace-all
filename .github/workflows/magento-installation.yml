@@ -51,8 +51,9 @@ jobs:
             composer config preferred-install source
             composer config minimum-stability dev
             composer config repositories.local-source path local-source/
-            echo "Installing $COMPOSER_NAME:dev-${BRANCH}"
-            composer require $COMPOSER_NAME:dev-${BRANCH} --no-update --no-interaction
+            composer config repositories.remote-source vcs git@github.com:${COMPOSER_NAME}.git
+            echo "Installing ${COMPOSER_NAME}:dev-${BRANCH}"
+            composer require ${COMPOSER_NAME} --no-update --no-interaction
       - name: Composer installation
         run: |
             cd /tmp/m2
