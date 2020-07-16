@@ -1,7 +1,4 @@
 {
   "name": "yireo/magento2-replace-all",
-  "description": "Checkout a specific branch",
-  "require": {
-    "magento/product-community-edition": "0.0.0"
-  }
+  "description": "Checkout a specific branch"
 }
