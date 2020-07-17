@@ -70,5 +70,5 @@ jobs:
       - name: Additional checks
         run: |
             cd /tmp/m2
-            ls -al vendor/
+            bin/magento module:status
 
