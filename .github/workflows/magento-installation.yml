@@ -36,7 +36,7 @@ jobs:
             COMPOSER_NAME: ${{ secrets.COMPOSER_NAME }}
         run: |
             MAGENTO_VERSION=`cat ${GITHUB_WORKSPACE}/.github/workflows/magento_version.txt`
-            BRANCH=magento-${MAGENTO_VERSION}
+            BRANCH=magento-${MAGENTO_VERSION/-p*/}
             test -z "$MAGENTO_VERSION" && exit 1
             cd /tmp/m2
             ln -s ${GITHUB_WORKSPACE} local-source
