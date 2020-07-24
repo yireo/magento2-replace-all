@@ -1,5 +1,5 @@
-# Magento 2 removal of all optional modules
-This repository contains a composer meta-package that removes optional modules. To install, use the following:
+# Magento 2 removal of optional modules
+This repository contains a composer meta-package that removes optional modules. To install this package, use the following:
 
     composer require yireo/magento2-replace-all
 
