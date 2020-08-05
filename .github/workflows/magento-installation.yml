@@ -1,5 +1,5 @@
 name: Magento installation
-on: [push, pull_request]
+on: [push]
 defaults:
   run:
     shell: bash
@@ -67,7 +67,7 @@ jobs:
                 --backend-frontname=admin --language=en_US \
                 --currency=USD --timezone=Europe/Amsterdam --cleanup-database \
                 --sales-order-increment-prefix="ORD$" --session-save=db \
-                --use-rewrites=1
+                --use-rewrites=1 --elasticsearch-host=es
       - name: Magento compilation
         run: |
             cd /tmp/m2
