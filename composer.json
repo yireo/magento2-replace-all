@@ -193,6 +193,8 @@
         "magento/module-wishlist-analytics": "*",
         "magento/module-wishlist-graph-ql": "*",
         "magento/module-worldpay": "*",
+        "paypal/module-braintree-core": "*",
+        "paypal/module-braintree": "*",
         "temando/module-shipping": "*",
         "temando/module-shipping-m2": "*",
         "temando/module-shipping-remover": "*",
