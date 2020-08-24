@@ -67,7 +67,7 @@ jobs:
                 --backend-frontname=admin --language=en_US \
                 --currency=USD --timezone=Europe/Amsterdam --cleanup-database \
                 --sales-order-increment-prefix="ORD$" --session-save=db \
-                --use-rewrites=1 --elasticsearch-host=es
+                --use-rewrites=1 --elasticsearch-host=es --search-engine=elasticsearch7
       - name: Magento compilation
         run: |
             cd /tmp/m2
