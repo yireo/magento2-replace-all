@@ -84,7 +84,6 @@
         "magento/module-downloadable-import-export": "*",
         "magento/module-downloadable-staging": "*",
         "magento/module-eav-graph-ql": "*",
-        "magento/module-elasticsearch": "*",
         "magento/module-elasticsearch-6": "*",
         "magento/module-eway": "*",
         "magento/module-fedex": "*",
