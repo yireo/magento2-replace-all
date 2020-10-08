@@ -11,7 +11,6 @@
         "amzn/amazon-pay-sdk-php": "*",
         "amzn/login-with-amazon-module": "*",
         "astock/stock-api-libphp": "*",
-        "braintree/braintree": "*",
         "braintree/braintree_php": "*",
         "dotmailer/dotmailer-magento2-extension": "*",
         "dotmailer/dotmailer-magento2-extension-chat": "*",
