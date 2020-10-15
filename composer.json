@@ -2,7 +2,7 @@
     "name": "yireo/magento2-replace-all",
     "description": "Remove various packages from Magento",
     "require": {
-        "magento/product-community-edition": ">=2.4.1 <2.4.2"
+        "magento/product-community-edition": ">=2.4.0 <2.4.2"
     },
     "replace": {
         "amzn/amazon-pay-and-login-magento-2-module": "*",
