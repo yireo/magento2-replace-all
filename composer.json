@@ -60,6 +60,7 @@
         "magento/module-catalog-inventory-staging": "*",
         "magento/module-catalog-page-builder-analytics-staging": "*",
         "magento/module-catalog-rule-staging": "*",
+        "magento/module-catalog-rule-graph-ql": "*",
         "magento/module-catalog-staging": "*",
         "magento/module-catalog-staging-page-builder": "*",
         "magento/module-catalog-url-rewrite-graph-ql": "*",
