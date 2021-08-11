@@ -2,7 +2,7 @@
     "name": "yireo/magento2-replace-all",
     "description": "Remove various packages from Magento",
     "require": {
-        "magento/product-community-edition": ">=2.3.0 <2.3.8"
+        "magento/product-community-edition": "2.3.*"
     },
     "replace": {
         "amzn/amazon-pay-and-login-magento-2-module": "*",
@@ -219,6 +219,9 @@
         "vertex/module-tax": "*",
         "vertex/product-magento-module": "*",
         "vertex/sdk": "*",
+        "vertexinc/module-tax-staging": "*",
+        "vertexinc/product-magento-module": "*",
+        "vertexinc/product-magento-module-commerce": "*",
         "yotpo/magento2-module-yotpo-reviews": "*",
         "yotpo/magento2-module-yotpo-reviews-bundle": "*"
     }
