@@ -31,6 +31,7 @@ jobs:
             COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
             mkdir -p /tmp/m2 && cd /tmp/m2
+            composer global config github-oauth.github.com $COMPOSER_TOKEN
             composer global config http-basic.repo.magento.com $MAGENTO_MARKETPLACE_USERNAME $MAGENTO_MARKETPLACE_PASSWORD
       - name: Creating Magento composer project
         run: |
