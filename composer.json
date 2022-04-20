@@ -202,6 +202,7 @@
         "magento/module-newsletter-graph-ql": "*",
         "magento/module-offline-shipping-sample-data": "*",
         "magento/module-page-builder-analytics": "*",
+        "magento/module-payment-graph-ql": "*",
         "magento/module-payment-staging": "*",
         "magento/module-paypal-graph-ql": "*",
         "magento/module-product-links-sample-data": "*",
