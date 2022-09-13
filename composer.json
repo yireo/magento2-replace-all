@@ -252,6 +252,7 @@
         "magento/module-tax-sample-data": "*",
         "magento/module-theme-graph-ql": "*",
         "magento/module-theme-sample-data": "*",
+        "magento/module-two-factor-auth": "*",
         "magento/module-ups": "*",
         "magento/module-url-rewrite-graph-ql": "*",
         "magento/module-usps": "*",
